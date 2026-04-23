@@ -1,2 +1,2 @@
-# android_gradle-plugins
+# android-gradle-plugins
 toml version catalog
