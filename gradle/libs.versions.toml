@@ -1,12 +1,11 @@
 [versions]
 
-minSdk = "26"
-targetSdk = "36"
-compileSdk = "36"
+
 agp = "8.13.2"
 spotless = "6.25.0"
 licensee = "1.12.0"
 dokkaPlugin = "2.2.0"
+taisauPlugins = "1.1.2"
 compose-multiplatform = "1.7.0"
 kotlin-ksp = "2.2.0-2.0.2"
 kotlin = "2.3.10"
@@ -18,7 +17,7 @@ core-ktx = "1.17.0"
 graphics-core = "1.0.4"
 
 annotation = "1.9.1"
-
+protobufPlugin = "0.9.6"
 datastore = "1.2.0"
 lifecycle = "2.10.0"
 
@@ -172,34 +171,48 @@ dokka-gradlePlugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugi
 dokka-android-gradlePlugin = { group = "org.jetbrains.dokka", name = "android-documentation-plugin", version.ref = "dokkaPlugin" }
 
 [plugins]
-# External Connectors
+# Android Gradle 插件集合
+# 包含 Android 应用、库、Lint 检查和测试项目的官方 Gradle 插件
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+# Kotlin 相关插件
+# 包含 JVM、多平台、序列化、KSP、Compose 等 Kotlin 生态系统的 Gradle 插件
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-dokka = { id = "org.jetbrains.dokka", version.ref = "dokkaPlugin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+# Compose 多平台插件
+# JetBrains Compose Multiplatform 框架及相关编译器插件
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+# 第三方依赖管理和代码质量插件
+# 包含 Protobuf、许可证检查、Room 数据库、Hilt 依赖注入、代码格式化等工具
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+licensee = { id ="app.cash.licensee", version.ref = "licensee" }
 room = { id = "androidx.room", version.ref = "room" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-licensee = { id ="app.cash.licensee", version.ref = "licensee" }
 
-# custom plugins
-taisau-android-application = { id = "com.taisau.android.plugin.application" }
-taisau-android-library = { id = "com.taisau.android.plugin.library" }
-taisau-android-application-compose = { id = "com.taisau.android.plugin.application.compose" }
-taisau-android-library-compose = { id = "com.taisau.android.plugin.library.compose" }
-taisau-android-feature = { id = "com.taisau.android.plugin.feature" }
-taisau-android-hilt = { id = "com.taisau.android.plugin.hilt" }
-taisau-android-test = { id = "com.taisau.android.plugin.test" }
-taisau-android-room = { id = "com.taisau.android.plugin.room" }
-taisau-jvm-kotlin = { id = "com.taisau.jvm.plugin.kotlin" }
-taisau-kotlin-kmp = { id = "com.taisau.kotlin.plugin.kmp" }
-taisau-cmp-compose = { id = "com.taisau.cmp.plugin.compose" }
-taisau-dokka = { id = "com.taisau.plugin.dokka" }
-taisau-root = { id = "com.taisau.plugin.root" }
+# Taisau 自定义 Gradle 插件集合
+# 项目内部开发的约定插件，用于统一配置 Android、Kotlin、Compose 等项目的构建规则
+taisau-android-application = { id = "com.taisau.android.plugin.application", version.ref = "taisauPlugins"}
+taisau-android-library = { id = "com.taisau.android.plugin.library", version.ref = "taisauPlugins" }
+taisau-android-application-compose = { id = "com.taisau.android.plugin.application.compose", version.ref = "taisauPlugins" }
+taisau-android-library-compose = { id = "com.taisau.android.plugin.library.compose", version.ref = "taisauPlugins" }
+taisau-android-feature = { id = "com.taisau.android.plugin.feature", version.ref = "taisauPlugins" }
+taisau-android-hilt = { id = "com.taisau.android.plugin.hilt", version.ref = "taisauPlugins"}
+taisau-android-test = { id = "com.taisau.android.plugin.test", version.ref = "taisauPlugins" }
+taisau-android-room = { id = "com.taisau.android.plugin.room", version.ref = "taisauPlugins" }
+taisau-jvm-kotlin = { id = "com.taisau.jvm.plugin.kotlin", version.ref = "taisauPlugins"}
+taisau-kotlin-kmp = { id = "com.taisau.kotlin.plugin.kmp", version.ref = "taisauPlugins" }
+taisau-cmp-compose = { id = "com.taisau.cmp.plugin.compose", version.ref = "taisauPlugins"}
+taisau-dokka = { id = "com.taisau.plugin.dokka", version.ref = "taisauPlugins" }
+taisau-root = { id = "com.taisau.plugin.root", version.ref = "taisauPlugins" }
