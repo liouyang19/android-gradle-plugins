@@ -1,12 +1,15 @@
 plugins {
 	`kotlin-dsl`
     `java-gradle-plugin`
+    alias(libs.plugins.spotless)
 }
 
-group = "com.taisau.android.buildllogic"
-version = "1.0.0"
+
 
 java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 	sourceCompatibility = JavaVersion.VERSION_21
 	targetCompatibility = JavaVersion.VERSION_21
 }
@@ -20,6 +23,8 @@ kotlin {
 dependencies {
 	compileOnly(libs.android.gradlePlugin)
 	compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.spotless.gradlePlugin)
+    compileOnly(libs.licensee.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
     compileOnly(libs.room.gradlePlugin)
     compileOnly(libs.hilt.gradlePlugin)

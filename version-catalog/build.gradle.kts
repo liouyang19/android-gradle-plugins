@@ -2,8 +2,7 @@ plugins {
     `version-catalog`
     `maven-publish`
 }
-group = "com.taisau.android.plugins"
-version = "1.0.0"
+
 
 catalog {
     versionCatalog {
@@ -19,13 +18,14 @@ publishing {
     publications {
         create<MavenPublication>("libs") {
             from(components["versionCatalog"])
-            groupId = group.toString()
+            groupId = "com.github.liouyang19"
+            artifactId = "android-gradle-plugins"
             artifactId = "version-catalog"
-            version = project.version.toString()
+            version = "1.0.0"
             pom {
                 name.set("Taisau project version catalog for Android")
                 description.set("Taisau project version catalog for Android")
-                url.set("https://gitcode.com/ouyang_li/android-gradle-plugins")
+                url.set("https://github.com/liouyang19/android-gradle-plugins")
                 packaging = "toml"
             }
         }

@@ -19,10 +19,10 @@ class AndroidRoomConventionPlugin : Plugin<Project> {
                 apply("com.google.devtools.ksp")
                 apply("androidx.room")
             }
-
+            extensions.configure<KspExtension> {
+                arg("room.generateKotlin", "true")
+            }
             extensions.configure<RoomExtension> {
-                // The directory where schemas should be dumped.
-                // project.file("schemas") can be used if you want it in the module directory
                 schemaDirectory("$projectDir/schemas")
             }
 

@@ -4,7 +4,8 @@ minSdk = "26"
 targetSdk = "36"
 compileSdk = "36"
 agp = "8.13.2"
-
+spotless = "6.25.0"
+licensee = "1.12.0"
 kotlin-ksp = "2.2.0-2.0.2"
 kotlin = "2.3.10"
 ##################### AndroidX Libraray Version ###########
@@ -136,7 +137,8 @@ runner = { group = "com.android.support.test", name = "runner", version.ref = "r
 # Gradle Plugins
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-
+spotless-gradlePlugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
+licensee-gradlePlugin = { module = "app.cash.licensee:licensee-gradle-plugin", version.ref = "licensee" }
 
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
@@ -166,7 +168,8 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
+licensee = { id ="app.cash.licensee", version.ref = "licensee" }
 
 taisau-android-application = { id = "taisau.android.application" }
