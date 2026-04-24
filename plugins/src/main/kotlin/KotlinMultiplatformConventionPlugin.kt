@@ -1,8 +1,7 @@
-package com.taisau.android.buildllogic
-
+import com.taisau.android.buildllogic.configureSpotless
+import com.taisau.android.gradle.configureKotlinKmp
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
@@ -74,7 +73,7 @@ class KotlinMultiplatformConventionPlugin : Plugin<Project> {
 			}
 			
 			configureSpotless()
-			configureKotlin()
+			configureKotlinKmp()
 			
 		}
 		

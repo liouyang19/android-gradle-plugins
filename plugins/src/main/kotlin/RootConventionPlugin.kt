@@ -1,4 +1,4 @@
-package com.taisau.android.buildllogic
+import com.taisau.android.buildllogic.configureSpotless
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

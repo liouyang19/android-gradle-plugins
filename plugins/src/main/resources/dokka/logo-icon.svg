@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200">
+    <rect width="600" height="200" fill="#ffffff"/>
+
+    <text x="300" y="125" text-anchor="middle"
+        font-family="-apple-system, 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
+        font-size="58"
+        font-weight="350"
+        letter-spacing="5"
+        fill="#0066FF">
+        Taisau
+    </text>
+</svg>
