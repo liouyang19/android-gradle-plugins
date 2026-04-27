@@ -1,6 +1,6 @@
+package com.taisau.gradle
+
 import com.android.build.api.dsl.LibraryExtension
-import com.taisau.android.buildllogic.libs
-import com.taisau.android.gradle.configureAndroidCompose
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies

@@ -1,6 +1,5 @@
-import com.taisau.android.buildllogic.configureLicensee
-import com.taisau.android.gradle.configureAndroid
-import com.taisau.android.gradle.configureAndroidLicensesTasks
+package com.taisau.gradle
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

@@ -1,7 +1,6 @@
-package com.taisau.android.buildllogic
+package com.taisau.gradle
 
 import com.diffplug.gradle.spotless.SpotlessExtension
-import com.diffplug.spotless.LineEnding
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 

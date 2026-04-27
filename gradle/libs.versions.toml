@@ -16,6 +16,7 @@ graphics-core = "1.0.4"
 
 annotation = "1.9.1"
 protobufPlugin = "0.9.6"
+publishPlugin = "2.1.1"
 datastore = "1.2.0"
 
 
@@ -337,7 +338,7 @@ licensee = { id ="app.cash.licensee", version.ref = "licensee" }
 room = { id = "androidx.room", version.ref = "room" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-
+publish = { id = "com.gradle.plugin-publish", version.ref = "publishPlugin" }
 # Taisau 自定义 Gradle 插件集合
 # 项目内部开发的约定插件，用于统一配置 Android、Kotlin、Compose 等项目的构建规则
 taisau-android-application = { id = "com.taisau.android.plugin.application", version.ref = "taisauPlugins"}

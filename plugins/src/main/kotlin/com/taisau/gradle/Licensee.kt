@@ -1,4 +1,4 @@
-package com.taisau.android.buildllogic
+package com.taisau.gradle
 
 import app.cash.licensee.LicenseeExtension
 import app.cash.licensee.UnusedAction

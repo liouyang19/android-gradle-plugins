@@ -1,4 +1,4 @@
-package com.taisau.android.gradle
+package com.taisau.gradle
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension

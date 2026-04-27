@@ -1,11 +1,10 @@
-package com.taisau.android.gradle
+package com.taisau.gradle
 
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.HasUnitTestBuilder
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
-import com.taisau.android.buildllogic.libs
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies

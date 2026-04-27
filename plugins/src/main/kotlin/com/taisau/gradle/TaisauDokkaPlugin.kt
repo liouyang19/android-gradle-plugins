@@ -1,4 +1,5 @@
-import com.taisau.android.gradle.getVersionNameFromTags
+package com.taisau.gradle
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType

@@ -1,4 +1,5 @@
-import com.taisau.android.gradle.configureKotlinJvm
+package com.taisau.gradle
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

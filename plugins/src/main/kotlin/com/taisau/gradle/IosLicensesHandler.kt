@@ -1,4 +1,4 @@
-package com.taisau.android.gradle
+package com.taisau.gradle
 
 import java.io.File
 import org.gradle.api.Project

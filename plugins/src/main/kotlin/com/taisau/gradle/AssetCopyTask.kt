@@ -1,4 +1,4 @@
-package com.taisau.android.gradle
+package com.taisau.gradle
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty

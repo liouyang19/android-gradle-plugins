@@ -1,5 +1,4 @@
-
-import com.taisau.android.gradle.configureComposeMultiplatform
+package com.taisau.gradle
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

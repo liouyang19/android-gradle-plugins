@@ -1,5 +1,5 @@
-import com.taisau.android.buildllogic.configureSpotless
-import com.taisau.android.gradle.configureKotlinKmp
+package com.taisau.gradle
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

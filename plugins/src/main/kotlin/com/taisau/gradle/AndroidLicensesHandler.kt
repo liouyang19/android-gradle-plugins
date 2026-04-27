@@ -1,8 +1,7 @@
-package com.taisau.android.gradle
+package com.taisau.gradle
 
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import org.gradle.api.Project
-import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.register
 
