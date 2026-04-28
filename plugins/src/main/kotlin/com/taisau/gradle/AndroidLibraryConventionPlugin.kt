@@ -10,8 +10,12 @@ import org.gradle.kotlin.dsl.dependencies
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply("com.android.library")
-            apply(AndroidLintConventionPlugin::class.java)
+            with(pluginManager) {
+                apply("com.android.library")
+                apply("org.gradle.android.cache-fix")
+                apply(AndroidLintConventionPlugin::class.java)
+            }
+         
             
             extensions.configure<LibraryExtension> {
                 compileSdk {
@@ -30,12 +34,12 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 
             }
             
-            dependencies {
-                "androidTestImplementation"(libs.findLibrary("kotlin.test").get())
-                "testImplementation"(libs.findLibrary("kotlin.test").get())
-                "testImplementation"(libs.findLibrary("junit").get())
-                "implementation"(libs.findLibrary("androidx.tracing.ktx").get())
-            }
+//            dependencies {
+//                "androidTestImplementation"(libs.findLibrary("kotlin.test").get())
+//                "testImplementation"(libs.findLibrary("kotlin.test").get())
+//                "testImplementation"(libs.findLibrary("junit").get())
+//                "implementation"(libs.findLibrary("androidx.tracing.ktx").get())
+//            }
             
          
         }

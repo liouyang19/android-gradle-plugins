@@ -10,9 +10,10 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
 	override fun apply(target: Project) {
 		with(target) {
 			with(pluginManager) {
+				apply("org.jetbrains.kotlin.plugin.compose")
 				apply(AndroidLibraryConventionPlugin::class.java)
 				apply(AndroidKotlinConventionPlugin::class.java)
-				apply("org.jetbrains.kotlin.plugin.compose")
+				
 			}
 			
 			val extension = extensions.getByType<LibraryExtension>()

@@ -76,11 +76,7 @@ gradlePlugin {
             id = "com.taisau.android.plugin.hilt"
             implementationClass = "com.taisau.gradle.AndroidHiltConventionPlugin"
         }
-        
-        register("android.test"){
-            id = "com.taisau.android.plugin.test"
-            implementationClass = "com.taisau.gradle.AndroidTestConventionPlugin"
-        }
+   
         
         register("android.room") {
             id = "com.taisau.android.plugin.room"

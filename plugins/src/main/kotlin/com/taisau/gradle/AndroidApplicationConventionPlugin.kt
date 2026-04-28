@@ -14,7 +14,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.application")
                 apply("org.gradle.android.cache-fix")
-                apply(AndroidLibraryConventionPlugin::class.java)
             }
             extensions.configure<ApplicationExtension>{
                 compileSdk {
@@ -78,7 +77,5 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             }
             
         }
-        
-        
     }
 }
