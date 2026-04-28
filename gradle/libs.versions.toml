@@ -1,14 +1,19 @@
 [versions]
 
 
-agp = "8.13.2"
+androidGradlePlugin  = "9.1.0"
+kotlin = "2.3.20"
+ksp = "2.3.6"
+
+androidxActivity = "1.13.0"
+androidxAnnotation = "1.9.1"
 spotless = "6.25.0"
 licensee = "1.12.0"
 dokkaPlugin = "2.2.0"
 taisauPlugins = "1.1.2"
 compose-multiplatform = "1.7.0"
-kotlin-ksp = "2.2.0-2.0.2"
-kotlin = "2.3.10"
+
+
 ##################### AndroidX Libraray Version ###########
 
 core-ktx = "1.17.0"
@@ -17,6 +22,7 @@ graphics-core = "1.0.4"
 annotation = "1.9.1"
 protobufPlugin = "0.9.6"
 publishPlugin = "2.1.1"
+androidCacheFix = "3.0.1"
 datastore = "1.2.0"
 
 
@@ -60,8 +66,8 @@ espresso-core = "3.7.0"
 material = "1.13.0"
 
 runner = "1.0.2"
-androidxActivity = "1.13.0"
-androidxAnnotation = "1.9.1"
+
+
 androidxAppCompat = "1.7.1"
 androidxCardview = "1.0.0"
 androidxConstraintlayout = "2.2.1"
@@ -290,39 +296,39 @@ coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 
 
 
-
+tools-desugarjdklibs = "com.android.tools:desugar_jdk_libs:2.1.3"
 
 
 
 
 # Gradle Plugins
-android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 spotless-gradlePlugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
 licensee-gradlePlugin = { module = "app.cash.licensee:licensee-gradle-plugin", version.ref = "licensee" }
-ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "kotlin-ksp" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 compose-gradlePlugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose-multiplatform" }
 composeCompiler-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 dokka-gradlePlugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokkaPlugin" }
 dokka-android-gradlePlugin = { group = "org.jetbrains.dokka", name = "android-documentation-plugin", version.ref = "dokkaPlugin" }
 hilt-gradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
-
+android-cacheFix-gradlePlugin = { group = "org.gradle.android.cache-fix", name = "org.gradle.android.cache-fix.gradle.plugin", version.ref = "androidCacheFix" }
 [plugins]
 # Android Gradle 插件集合
 # 包含 Android 应用、库、Lint 检查和测试项目的官方 Gradle 插件
-android-application = { id = "com.android.application", version.ref = "agp" }
-android-library = { id = "com.android.library", version.ref = "agp" }
-android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
-android-lint = { id = "com.android.lint", version.ref = "agp" }
-android-test = { id = "com.android.test", version.ref = "agp" }
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "androidGradlePlugin" }
+android-lint = { id = "com.android.lint", version.ref = "androidGradlePlugin" }
+android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 
 # Kotlin 相关插件
 # 包含 JVM、多平台、序列化、KSP、Compose 等 Kotlin 生态系统的 Gradle 插件
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-dokka = { id = "org.jetbrains.dokka", version.ref = "dokkaPlugin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
@@ -330,6 +336,9 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 # JetBrains Compose Multiplatform 框架及相关编译器插件
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+#用于修复 Android 构建缓存的已知问题
+android-cache-fix = { id = "org.gradle.android.cache-fix", version = "androidCacheFix" }
 
 # 第三方依赖管理和代码质量插件
 # 包含 Protobuf、许可证检查、Room 数据库、Hilt 依赖注入、代码格式化等工具
@@ -345,6 +354,7 @@ taisau-android-application = { id = "com.taisau.android.plugin.application", ver
 taisau-android-library = { id = "com.taisau.android.plugin.library", version.ref = "taisauPlugins" }
 taisau-android-application-compose = { id = "com.taisau.android.plugin.application.compose", version.ref = "taisauPlugins" }
 taisau-android-library-compose = { id = "com.taisau.android.plugin.library.compose", version.ref = "taisauPlugins" }
+taisau-android-kotlin = { id = "com.taisau.android.plugin.kotlin", version.ref = "taisauPlugins" }
 taisau-android-feature = { id = "com.taisau.android.plugin.feature", version.ref = "taisauPlugins" }
 taisau-android-hilt = { id = "com.taisau.android.plugin.hilt", version.ref = "taisauPlugins"}
 taisau-android-test = { id = "com.taisau.android.plugin.test", version.ref = "taisauPlugins" }

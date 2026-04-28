@@ -1,7 +1,7 @@
 package com.taisau.gradle
-
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 
 /**
@@ -17,46 +17,60 @@ import org.gradle.kotlin.dsl.configure
  * - 处理行尾空格和文件结尾换行
  * - 支持跨平台行结束符统一
  */
-fun Project.configureSpotless() {
-	with(pluginManager) {
-		apply("com.diffplug.spotless")
-	}
-	
-	spotless {
-		val ktlintVersion = libs.findLibrary("ktlint").get().get().version
-		kotlin {
-			target("src/**/*.kt")
-			ktlint(ktlintVersion)
+internal fun Project.configureSpotlessForAndroid() {
+	configureSpotlessCommon()
+	extensions.configure<SpotlessExtension> {
+		format("xml") {
+			target("src/**/*.xml")
+			// Look for the first XML tag that isn't a comment (<!--) or the xml declaration (<?xml)
+			licenseHeaderFile(rootDir.resolve("spotless/copyright.xml"), "(<[^!?])")
+			endWithNewline()
 		}
-		
-		kotlinGradle {
-			target("*.kts")
-			ktlint(ktlintVersion)
-		}
-		
 	}
-	
-	
-//    pluginManager.apply("com.diffplug.spotless")
-//
-//    extensions.configure<SpotlessExtension> {
-//        kotlin {
-//            target("**/*.kt")
-//            targetExclude("**/build/**/*.kt")
-//            ktfmt()
-//            licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
-//        }
-//
-//        format("kts") {
-//            target("**/*.kts")
-//            targetExclude("**/build/**/*.kts")
-//            trimTrailingWhitespace()
-//            indentWithSpaces()
-//            endWithNewline()
-//        }
-//
-//        lineEndings = LineEnding.PLATFORM_NATIVE
-//    }
 }
 
-private fun Project.spotless(action: SpotlessExtension.() -> Unit) = extensions.configure<SpotlessExtension>(action)
+internal fun Project.configureSpotlessForJvm() {
+	configureSpotlessCommon()
+}
+
+internal fun Project.configureSpotlessForRootProject() {
+	apply(plugin = "com.diffplug.spotless")
+	extensions.configure<SpotlessExtension> {
+		kotlin {
+			target("build-logic/convention/src/**/*.kt")
+			ktlint(libs.findVersion("ktlint").get().requiredVersion).editorConfigOverride(
+				mapOf("android" to "true"),
+			)
+			licenseHeaderFile(rootDir.resolve("spotless/copyright.kt"))
+			endWithNewline()
+		}
+		format("kts") {
+			target("*.kts")
+			target("build-logic/*.kts")
+			target("build-logic/convention/*.kts")
+			// Look for the first line that doesn't have a block comment (assumed to be the license)
+			licenseHeaderFile(rootDir.resolve("spotless/copyright.kts"), "(^(?![\\/ ]\\*).*$)")
+			endWithNewline()
+		}
+	}
+}
+
+private fun Project.configureSpotlessCommon() {
+	apply(plugin = "com.diffplug.spotless")
+	extensions.configure<SpotlessExtension> {
+		kotlin {
+			target("src/**/*.kt")
+			ktlint(libs.findVersion("ktlint").get().requiredVersion).editorConfigOverride(
+				mapOf("android" to "true"),
+			)
+			licenseHeaderFile(rootDir.resolve("spotless/copyright.kt"))
+			endWithNewline()
+		}
+		format("kts") {
+			target("*.kts")
+			// Look for the first line that doesn't have a block comment (assumed to be the license)
+			licenseHeaderFile(rootDir.resolve("spotless/copyright.kts"), "(^(?![\\/ ]\\*).*$)")
+			endWithNewline()
+		}
+	}
+}

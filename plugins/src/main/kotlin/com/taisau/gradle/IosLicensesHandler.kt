@@ -3,6 +3,7 @@ package com.taisau.gradle
 import java.io.File
 import org.gradle.api.Project
 import org.gradle.configurationcache.extensions.capitalized
+import org.gradle.internal.extensions.stdlib.capitalized
 import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.konan.target.KonanTarget
 

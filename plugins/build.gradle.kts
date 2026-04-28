@@ -24,7 +24,7 @@ dependencies {
 	compileOnly(libs.android.gradlePlugin)
 	compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.spotless.gradlePlugin)
-    compileOnly(libs.licensee.gradlePlugin)
+
     compileOnly(libs.ksp.gradlePlugin)
     compileOnly(libs.room.gradlePlugin)
     compileOnly(libs.hilt.gradlePlugin)
@@ -32,6 +32,9 @@ dependencies {
     compileOnly(libs.compose.gradlePlugin)
     compileOnly(libs.dokka.gradlePlugin)
     lintChecks(libs.androidx.lint.gradle)
+    
+    implementation(libs.android.cacheFix.gradlePlugin)
+    implementation(libs.licensee.gradlePlugin)
 }
 
 tasks {
@@ -88,7 +91,11 @@ gradlePlugin {
             id = "com.taisau.android.plugin.lint"
             implementationClass = "com.taisau.gradle.AndroidLintConventionPlugin"
         }
-     
+        
+        register("android.kotlin") {
+            id = "com.taisau.android.plugin.kotlin"
+            implementationClass = "com.taisau.gradle.AndroidKotlinConventionPlugin"
+        }
         
         register("jvm.kotlin"){
             id = "com.taisau.jvm.plugin.kotlin"

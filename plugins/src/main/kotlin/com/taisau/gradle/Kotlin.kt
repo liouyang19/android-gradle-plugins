@@ -12,7 +12,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinWithJavaTarget
 
 internal fun Project.configureKotlinAndroid(
-	commonExtension: CommonExtension<*,*,*,*,*,*>,
+	commonExtension: CommonExtension,
 ) {
 	commonExtension.apply {
 		compileOptions.apply {
