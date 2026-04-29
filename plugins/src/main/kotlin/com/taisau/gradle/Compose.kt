@@ -64,11 +64,12 @@ fun Project.configureComposeMultiplatform() {
         enableStrongSkippingMode.set(true)
         
         
+        
         // Needed for Layout Inspector to be able to see all of the nodes in the component tree:
         //https://issuetracker.google.com/issues/338842143
         includeSourceInformation.set(true)
         
-        if (project.providers.gradleProperty("tivi.enableComposeCompilerReports").isPresent) {
+        if (project.providers.gradleProperty("taisau.enableComposeCompilerReports").isPresent) {
             val composeReports = layout.buildDirectory.map { it.dir("reports").dir("compose") }
             reportsDestination.set(composeReports)
             metricsDestination.set(composeReports)
