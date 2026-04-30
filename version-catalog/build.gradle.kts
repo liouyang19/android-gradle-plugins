@@ -31,11 +31,11 @@ publishing {
                 url.set("https://github.com/liouyang19/android-gradle-plugins")
                 packaging = "toml"
                 
+            
                 licenses {
                     license {
-                        name.set("BSD-3-Clause")
-                        url.set("http://opensource.org/licenses/BSD-3-Clause")
-                        distribution.set("repo")
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
                 
@@ -48,12 +48,7 @@ publishing {
         }
     }
 
-    repositories {
-        maven {
-            name = "mavenLocal"
-            url = uri("${System.getProperty("user.home")}/.m2/repository")
-        }
-    }
+  
 }
 
 tasks.register("install") {

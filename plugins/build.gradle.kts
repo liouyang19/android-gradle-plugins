@@ -1,7 +1,8 @@
 plugins {
 	`kotlin-dsl`
-    `java-gradle-plugin`
     `maven-publish`
+    `version-catalog`
+    `java-gradle-plugin`
     alias(libs.plugins.spotless)
     alias(libs.plugins.android.lint)
 }
@@ -48,13 +49,12 @@ tasks {
 gradlePlugin {
     plugins {
         register("android.application") {
-            print(libs.plugins.taisau.android.application)
-            id = "com.taisau.android.plugin.application"
+            id = "com.taisau.android.plugin.android.application"
             displayName = "Standalone Application configuration"
             implementationClass = "com.taisau.gradle.AndroidApplicationConventionPlugin"
         }
         register("android.application.compose") {
-            id = "com.taisau.android.plugin.application.compose"
+            id = "com.taisau.android.plugin.android.application.compose"
             implementationClass = "com.taisau.gradle.AndroidApplicationComposeConventionPlugin"
         }
         register("android.library") {
@@ -120,14 +120,29 @@ gradlePlugin {
     }
 }
 
+
 publishing {
-    repositories {
-        mavenLocal() // 方便本地调试
-    }
-    // 统一配置所有自动生成的发布任务
-    publications.withType<MavenPublication>().configureEach {
-        groupId = "com.github.liouyang19" // 如果发到 JitPack，建议用这个
-        version = versionNameFromTags
+    publications {
+        // 为每个插件创建单独的发布（JitPack 需要）
+        withType<MavenPublication>().configureEach {
+            groupId = "com.taisau.android.plugin"
+            version = versionNameFromTags
+            if (name == "pluginMaven") {
+                artifactId = "application.compose"
+            }
+            pom {
+                name.set("Taisau Android Gradle Plugins")
+                description.set("Collection of Android Gradle convention plugins")
+                url.set("https://github.com/liouyang19/android-gradle-plugins")
+                
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+            }
+        }
     }
 }
 
