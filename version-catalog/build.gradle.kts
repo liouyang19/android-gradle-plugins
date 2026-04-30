@@ -45,11 +45,18 @@ publishing {
                     developerConnection.set("scm:git@github.com:liouyang19/Android-Gradle-Plugins.git")
                 }
             }
-            
-           
         }
     }
 
-  
+    repositories {
+        maven {
+            name = "mavenLocal"
+            url = uri("${System.getProperty("user.home")}/.m2/repository")
+        }
+    }
+}
+
+tasks.register("install") {
+    dependsOn("publishToMavenLocal")
 }
 

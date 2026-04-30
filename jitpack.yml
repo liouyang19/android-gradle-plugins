@@ -2,3 +2,9 @@ jdk:
   - openjdk17
 before_install:
   - chmod +x gradlew
+script:
+  - ./gradlew version-catalog:build -x test
+  - mkdir -p build/libs
+  - cp version-catalog/build/libs/*.toml build/libs/
+install:
+  - ./gradlew version-catalog:publishToMavenLocal -x test
