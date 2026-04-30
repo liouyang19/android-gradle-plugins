@@ -33,7 +33,6 @@ dependencies {
     compileOnly(libs.dokka.gradlePlugin)
     lintChecks(libs.androidx.lint.gradle)
     
-    implementation(libs.android.cacheFix.gradlePlugin)
     implementation(libs.licensee.gradlePlugin)
 }
 

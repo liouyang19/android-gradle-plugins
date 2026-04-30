@@ -13,7 +13,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("com.android.application")
-                apply("org.gradle.android.cache-fix")
             }
             extensions.configure<ApplicationExtension>{
                 compileSdk {

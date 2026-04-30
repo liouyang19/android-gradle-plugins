@@ -22,7 +22,7 @@ graphics-core = "1.0.4"
 annotation = "1.9.1"
 protobufPlugin = "0.9.6"
 publishPlugin = "2.1.1"
-androidCacheFix = "3.0.1"
+
 datastore = "1.2.0"
 
 
@@ -313,7 +313,7 @@ composeCompiler-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler
 dokka-gradlePlugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokkaPlugin" }
 dokka-android-gradlePlugin = { group = "org.jetbrains.dokka", name = "android-documentation-plugin", version.ref = "dokkaPlugin" }
 hilt-gradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
-android-cacheFix-gradlePlugin = { group = "org.gradle.android.cache-fix", name = "org.gradle.android.cache-fix.gradle.plugin", version.ref = "androidCacheFix" }
+
 [plugins]
 # Android Gradle 插件集合
 # 包含 Android 应用、库、Lint 检查和测试项目的官方 Gradle 插件
@@ -337,8 +337,6 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
-#用于修复 Android 构建缓存的已知问题
-android-cache-fix = { id = "org.gradle.android.cache-fix", version.ref = "androidCacheFix" }
 
 # 第三方依赖管理和代码质量插件
 # 包含 Protobuf、许可证检查、Room 数据库、Hilt 依赖注入、代码格式化等工具
