@@ -2,5 +2,7 @@ jdk:
   - openjdk21
 before_install:
   - chmod +x gradlew
+  - export TAG=$(git describe --tags --abbrev=0 | sed 's/^v//')
+  - sed -i "s/taisauPlugins = \".*\"/taisauPlugins = \"$TAG\"/" gradle/libs.versions.toml
 install:
   - ./gradlew publishToMavenLocal -x test

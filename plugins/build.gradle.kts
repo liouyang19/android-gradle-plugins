@@ -47,6 +47,7 @@ tasks {
 
 
 gradlePlugin {
+    isAutomatedPublishing = true
     plugins {
         register("android.application") {
             id = "com.taisau.android.plugin.android.application"
@@ -123,12 +124,15 @@ gradlePlugin {
 
 publishing {
     publications {
-        // 为每个插件创建单独的发布（JitPack 需要）
+        // 对所有自动生成的发布（包括 Marker 和 Main）进行统一校准
         withType<MavenPublication>().configureEach {
-            groupId = "com.taisau.android.plugin"
+            // 统一 Version，确保 Marker 指向的版本与主 Jar 一致
             version = versionNameFromTags
+            
+            // 如果是主 Jar 发布 (java-gradle-plugin 默认创建的叫 pluginMaven)
             if (name == "pluginMaven") {
-                artifactId = "application.compose"
+                groupId = "com.taisau.android.plugin"
+                artifactId = "taisau-convention-plugins" // 所有的插件逻辑其实都在这一个 Jar 里
             }
             pom {
                 name.set("Taisau Android Gradle Plugins")
