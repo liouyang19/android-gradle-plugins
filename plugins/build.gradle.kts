@@ -31,7 +31,7 @@ dependencies {
     compileOnly(libs.hilt.gradlePlugin)
     compileOnly(libs.composeCompiler.gradlePlugin)
     compileOnly(libs.compose.gradlePlugin)
-    compileOnly(libs.dokka.gradlePlugin)
+    implementation(libs.dokka.gradlePlugin)
     lintChecks(libs.androidx.lint.gradle)
     
     implementation(libs.licensee.gradlePlugin)

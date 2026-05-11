@@ -2,17 +2,17 @@
 
 ## Project Overview
 
-This is an Android Gradle Plugins repository containing custom Gradle convention plugins for Android projects. The project manages Android dependency versions centrally via a version catalog.
+Custom Gradle convention plugins for Android/KMP/Compose Multiplatform projects. Dependency versions are managed centrally via a version catalog (`gradle/libs.versions.toml`), published separately via the `version-catalog` module.
 
 ### Modules
 
-- `plugins/` - Custom Gradle convention plugins (Kotlin DSL)
-- `version-catalog/` - Version catalog for publishing
-- `sample/` - Sample Android app demonstrating plugin usage
+- `plugins/` - Custom Gradle convention plugins (Kotlin, 25 source files)
+- `version-catalog/` - Publishes the version catalog for external consumption
+- `build.gradle.kts` - Root project (minimal, just enables version-catalog publishing)
 
 ---
 
-## Build Commands
+## Build & Test Commands
 
 ### Gradle Wrapper
 
@@ -21,26 +21,15 @@ This is an Android Gradle Plugins repository containing custom Gradle convention
 ./gradlew.bat      # Windows
 ```
 
-### Build & Test
+### Common Commands
 
 | Command | Description |
 |---------|-------------|
-| `./gradlew build` | Full build of all projects |
 | `./gradlew plugins:build` | Build plugins module |
-| `./gradlew plugins:test` | Run plugins tests |
-| `./gradlew plugins:check` | Run all checks for plugins |
+| `./gradlew plugins:test` | Run all plugins tests |
+| `./gradlew plugins:check` | Run all checks (test + lint) |
 | `./gradlew plugins:assemble` | Assemble plugins outputs |
-
-### Sample App Commands
-
-| Command | Description |
-|---------|-------------|
-| `./gradlew sample:assemble` | Assemble sample app |
-| `./gradlew sample:test` | Run all sample unit tests |
-| `./gradlew sample:testDebugUnitTest` | Run debug unit tests |
-| `./gradlew sample:testReleaseUnitTest` | Run release unit tests |
-| `./gradlew sample:assembleDebugUnitTest` | Assemble debug unit tests |
-| `./gradlew sample:assembleReleaseUnitTest` | Assemble release unit tests |
+| `./gradlew plugins:publishToMavenLocal` | Publish plugins to local Maven |
 
 ### Running a Single Test
 
@@ -50,32 +39,23 @@ This is an Android Gradle Plugins repository containing custom Gradle convention
 
 # Single test method
 ./gradlew plugins:test --tests "TestClassName.testMethod"
-
-# Sample app single test
-./gradlew sample:testDebugUnitTest --tests "TestClassName.testMethod"
 ```
 
-### Lint Commands
+### Lint & Code Quality
 
 | Command | Description |
 |---------|-------------|
-| `./gradlew sample:lint` | Run lint on default variant |
-| `./gradlew sample:lintDebug` | Run lint on debug variant |
-| `./gradlew sample:lintRelease` | Run lint on release variant |
-| `./gradlew sample:lintFix` | Auto-fix lint issues |
-| `./gradlew sample:lintFixDebug` | Auto-fix debug lint issues |
-| `./gradlew sample:lintFixRelease` | Auto-fix release lint issues |
-| `./gradlew sample:updateLintBaseline` | Update lint baseline |
+| `./gradlew spotlessApply` | Auto-format Kotlin/kts code (ktlint) |
+| `./gradlew spotlessCheck` | Check formatting without applying |
+| `./gradlew plugins:check` | Run all checks including Spotless |
 
-### Other Useful Commands
+### Other Commands
 
 ```bash
 ./gradlew clean                    # Clean all build directories
-./gradlew dependencies             # Show all dependencies
-./gradlew sample:androidDependencies  # Show Android dependencies
-./gradlew sample:signingReport     # Show signing info
-./gradlew sample:sourceSets        # Show source sets
 ./gradlew projects                 # Show project structure
+./gradlew dependencies             # Show all dependencies
+./gradlew version-catalog:publishToMavenLocal  # Publish version catalog
 ```
 
 ---
@@ -86,48 +66,83 @@ This is an Android Gradle Plugins repository containing custom Gradle convention
 
 - **Gradle**: Kotlin DSL (`.gradle.kts` files)
 - **Plugin Code**: Kotlin
-- **Java Version**: Java 21 for plugins, Java 11 for sample apps
-- **Kotlin Version**: 2.3.10
-- **AGP Version**: 8.13.2
+- **Java Version**: JDK 21 (toolchain auto-provisioned via `gradle-daemon-jvm.properties`)
+- **Kotlin Version**: 2.3.20
+- **AGP Version**: 9.1.0
+- **Min SDK**: 26, **Target/Compile SDK**: 36
 
 ### Project Structure
 
 ```
-plugins/src/main/kotlin/com/taisau/android/buildllogic/
+plugins/src/main/kotlin/com/taisau/gradle/
 ├── AndroidApplicationConventionPlugin.kt
 ├── AndroidApplicationComposeConventionPlugin.kt
+├── AndroidFeatureConventionPlugin.kt
+├── AndroidHiltConventionPlugin.kt
+├── AndroidKotlinConventionPlugin.kt
+├── AndroidLibraryComposeConventionPlugin.kt
 ├── AndroidLibraryConventionPlugin.kt
-├── AndroidComposeConventionPlugin.kt
+├── AndroidLicensesHandler.kt
 ├── AndroidLintConventionPlugin.kt
 ├── AndroidRoomConventionPlugin.kt
-├── HiltConventionPlugin.kt
-└── KotlinAndroid.kt
+├── AssetCopyTask.kt
+├── Compose.kt
+├── ComposeMultiplatformConventionPlugin.kt
+├── GitVersion.kt
+├── IosLicensesHandler.kt
+├── Java.kt
+├── JvmKotlinConventionPlugin.kt
+├── Kotlin.kt
+├── KotlinMultiplatformConventionPlugin.kt
+├── Licensee.kt
+├── RootConventionPlugin.kt
+├── Spotless.kt
+├── TaisauDokkaPlugin.kt
+├── VersionCatalog.kt
+└── Versions.kt
 ```
 
-### Conventions
-
-#### Plugin Naming
-
-- Convention plugins follow pattern: `AndroidXxxConventionPlugin`
-- Custom plugin IDs follow pattern: `taisau.android.xxx`
-
-#### Kotlin Conventions
-
-- Use `internal` for non-public API functions
-- Use `with()` scope for clean Gradle configuration
-- Use `named()` for accessing version catalog entries
+### Plugin Naming
 
 ```kotlin
-// Good example
-internal fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
-) {
-    val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-    commonExtension.apply { ... }
+// ID pattern: com.taisau.{android|jvm|kmp|cmp}.plugin.{name}
+// Implementation: com.taisau.gradle.XxxPlugin
+
+register("android.application") {
+    id = "com.taisau.android.plugin.android.application"
+    implementationClass = "com.taisau.gradle.AndroidApplicationConventionPlugin"
 }
 ```
 
-#### Imports
+Registered plugins: `android.application`, `android.application.compose`, `android.library`, `android.library.compose`, `android.feature`, `android.hilt`, `android.room`, `android.lint`, `android.kotlin`, `jvm.kotlin`, `kmp.kotlin`, `cmp.compose`, `dokka`, `root`.
+
+### Code Conventions
+
+- **Package**: `com.taisau.gradle`
+- Use `internal` for non-public API utility functions (e.g., `configureKotlinAndroid`, `configureSpotlessForAndroid`)
+- Use `with(target)` scope functions for applying plugins to projects
+- Use `extensions.configure<T> { }` for configuring Gradle extensions
+- Use `extensions.getByType<T>()` for retrieving extensions
+- Access version catalog via the `libs` extension property:
+
+```kotlin
+// VersionCatalog.kt defines:
+internal val Project.libs: VersionCatalog
+    get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+// Usage:
+dependencies {
+    add("implementation", libs.findLibrary("androidx-compose-material3").get())
+}
+```
+
+- Use `compileOnly` for Gradle plugin dependencies (AGP, Kotlin GP, KSP, Hilt, Room, Compose)
+- Use `pluginManager.apply("plugin.id")` or `apply(XxxPlugin::class.java)` to apply plugins
+- Use `pluginManager.hasPlugin("...")` in `when` blocks for conditional configuration
+- Version constants defined in `Versions.kt` object (COMPILE_SDK, MIN_SDK, KOTLIN_VERSION, JVM_TARGET, etc.)
+- Git-based versioning via `getVersionCodeFromTags()` / `getVersionNameFromTags()` extension functions
+
+### Imports
 
 ```kotlin
 import com.android.build.api.dsl.ApplicationExtension
@@ -135,56 +150,47 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.dependencies
 ```
 
-### Version Management
+### Documentation
 
-- All dependency versions MUST be defined in `gradle/libs.versions.toml`
-- Access versions via version catalog, not hardcoded
+- KDoc comments used for public API, utility functions, and plugin classes
+- Comments are bilingual (Chinese descriptions for business logic, English for technical config)
+- Private extension functions often defined at bottom of file (e.g., `private fun Project.java(...)`)
 
-```kotlin
-// Good - use version catalog
-val targetSdk = libs.findVersion("targetSdk").get().requiredVersion.toInt()
+### Spotless / Formatting
 
-// Bad - hardcoded version
-val targetSdk = 36
-```
+- Spotless with ktlint enforces code style (configured in `Spotless.kt`)
+- Copyright headers from `spotless/copyright.kt`, `spotless/copyright.kts`, `spotless/copyright.xml`
+- Run `./gradlew spotlessApply` to auto-format before committing
 
 ### Error Handling
 
-- Use `with(target)` scope for applying plugins to projects
-- Use `when` with `pluginManager.hasPlugin()` for conditional configuration
-- Fail fast with clear error messages for misconfiguration
-
-### Formatting
-
-- 4-space indentation (Kotlin standard)
-- Follow existing code style in the repository
-- Keep Gradle configuration blocks properly indented
+- Fail fast with `?: throw IllegalStateException(...)` for missing resources
+- Use `runCatching { }.getOrNull()` for operations that may fail
+- Print stack traces with `e.printStackTrace()` in catch blocks for Git operations
+- Validates plugins strictly: `enableStricterValidation = true`, `failOnWarning = true`
 
 ---
 
 ## Dependency Management
 
-### Version Catalog Structure
+### Version Catalog
 
-The version catalog (`gradle/libs.versions.toml`) contains:
+All dependency versions in `gradle/libs.versions.toml`:
 
-- `[versions]` - Version numbers
-- `[libraries]` - Library definitions
-- `[plugins]` - Plugin definitions
+```
+[versions]    # Version numbers
+[libraries]   # Library GAV coordinates
+[plugins]     # Plugin coordinates
+```
 
 ### Adding New Dependencies
 
 1. Add version to `[versions]` section
 2. Add library to `[libraries]` section
-3. Use `alias()` in build files:
-
-```kotlin
-plugins {
-    alias(libs.plugins.android.application)
-}
-```
+3. Access via `libs.findLibrary("name").get()` in convention plugins
 
 ---
 
@@ -192,11 +198,10 @@ plugins {
 
 ### Mirrors
 
-The project uses Chinese mirror repositories for faster downloads:
-
+Configured in `settings.gradle.kts`:
 - Huawei Cloud: `https://mirrors.huaweicloud.com/repository/maven`
 - Aliyun: `https://maven.aliyun.com/repository/*`
-- Tencent Cloud: `https://mirrors.cloud.tencent.com`
+- Google, Maven Central, JitPack, Gradle Plugin Portal
 
 ### Cache
 
@@ -204,19 +209,9 @@ Maven local is prioritized for plugin caching.
 
 ---
 
-## Testing Convention Plugins
+## Publishing
 
-When testing convention plugins, ensure:
-
-1. Use `gradle.properties` or `local.properties` for local settings
-2. Test against the `sample` app to verify plugin behavior
-3. Run `./gradlew plugins:check` before committing
-
----
-
-## Additional Notes
-
-- This is a Gradle plugin project, not a typical Android app
-- The `plugins` module uses `kotlin-dsl` and `java-gradle-plugin`
-- Custom plugins are registered in `plugins/build.gradle.kts`
-- No existing lint rules files or code style configs in repository
+- Plugins published via `maven-publish` and `java-gradle-plugin` (group: `com.taisau.android.plugin`)
+- Version catalog published with group `com.github.liouyang19`, artifact `version-catalog`
+- Version derived from git tags via `gradle/git-tag-version.gradle.kts`
+- JitPack CI: `./gradlew publishToMavenLocal -x test` (configured in `jitpack.yml`)

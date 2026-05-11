@@ -2,8 +2,6 @@ package com.taisau.gradle
 
 import java.io.File
 import org.gradle.api.Project
-import org.gradle.configurationcache.extensions.capitalized
-import org.gradle.internal.extensions.stdlib.capitalized
 import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.konan.target.KonanTarget
 
@@ -38,7 +36,7 @@ fun Project.configureIosLicensesTasks() {
 		outputDirectory.set(output)
 		outputFilename.set("licenses.json")
 		
-		dependsOn("licensee${targetName.get().capitalized()}")
+		dependsOn("licensee${targetName.get().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }}")
 	}
 	
 	tasks
@@ -98,5 +96,5 @@ private val KonanTarget.presetName: String
 		val nameParts = name.split('_').mapNotNull { it.takeIf(String::isNotEmpty) }
 		return nameParts.asSequence()
 			.drop(1)
-			.joinToString("", nameParts.firstOrNull().orEmpty()) { it.capitalized() }
+			.joinToString("", nameParts.firstOrNull().orEmpty()) { it.replaceFirstChar { c -> if (c.isLowerCase()) c.titlecase() else c.toString() } }
 	}

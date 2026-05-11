@@ -19,6 +19,7 @@ class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
           
             
             val extension = extensions.getByType<ApplicationExtension>()
+
             configureAndroidCompose(extension)
             
             dependencies {

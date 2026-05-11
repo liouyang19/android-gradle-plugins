@@ -23,8 +23,8 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 defaultConfig {
                     minSdk = Versions.MIN_SDK
                     targetSdk = Versions.TARGET_SDK
-                    versionName = target.getVersionNameFromTags()
-                    versionCode = target.getVersionCodeFromTags()
+                    versionName = getVersionNameFromTags()
+                    versionCode = getVersionCodeFromTags()
                     
                 }
                 buildFeatures {
@@ -32,13 +32,13 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 }
                 
                 signingConfigs {
-                    val properties = Properties().also  {
+                    val properties = Properties().also {
                         it.load(FileInputStream(rootProject.file("keystore/key.properties")))
                     }
                     create("release") {
                         storeFile = properties.getProperty("storeFile")?.let { file(it) }
                         storePassword = properties.getProperty("storePassword")
-                        keyAlias =  properties.getProperty("keyAlias")
+                        keyAlias = properties.getProperty("keyAlias")
                         keyPassword = properties.getProperty("keyPassword")
                     }
                 }
