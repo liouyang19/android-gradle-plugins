@@ -68,7 +68,7 @@ class TaisauDokkaPlugin : Plugin<Project> {
 	}
 	
 	private fun getResourceAsFile(resourceName: String): File {
-		val resource = this::class.java.getResourceAsStream("dokka/$resourceName")
+		val resource = this::class.java.getResourceAsStream("/dokka/$resourceName")
 			?: throw IllegalStateException("Resource not found: $resourceName")
 		val tempDir = Files.createTempDirectory("dokka").toFile()
 		tempDir.deleteOnExit()
