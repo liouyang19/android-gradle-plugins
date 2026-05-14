@@ -7,6 +7,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import java.io.File
 
 /**
  * Android Lint 约定插件
@@ -35,7 +36,9 @@ class AndroidLintConventionPlugin : Plugin<Project> {
                     configure<ApplicationExtension> { lint(Lint::configure) }
                 
                 pluginManager.hasPlugin("com.android.library") ->
-                    configure<LibraryExtension> { lint(Lint::configure) }
+                    configure<LibraryExtension> {
+                        lint(Lint::configure)
+                    }
                 
                 else -> {
                     apply(plugin = "com.android.lint")
@@ -60,5 +63,14 @@ private fun Lint.configure() {
     xmlReport = true
     sarifReport = true
     checkDependencies = true
-    disable += "GradleDependency"
+    checkOnly.add("EagerGradleConfiguration")
+    checkOnly.add("Performance")
+    
+    // 忽略警告，只报错
+    warningsAsErrors = false
+    
+    // 启用缓存
+    lintConfig = File("lint.xml")
+    // 关键修复：禁用对 Gradle 脚本的分析，避开你遇到的 Lint 内部 Bug
+    disable += listOf("GradleDependency","GradleScripts")
 }

@@ -1,8 +1,6 @@
 package com.taisau.gradle
 
 import com.android.build.api.dsl.CommonExtension
-import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
-import com.android.build.gradle.internal.lint.LintModelWriterTask
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
@@ -13,7 +11,7 @@ import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginE
  * Configure Compose-specific options
  */
 internal fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension,
+    commonExtension: CommonExtension<*,*,*,*,*,*>,
 ) {
     
     commonExtension.apply {
@@ -75,13 +73,9 @@ fun Project.configureComposeMultiplatform() {
             metricsDestination.set(composeReports)
         }
         
-        stabilityConfigurationFile.set(rootProject.file("compose-stability.conf"))
     }
     
     
-    tasks.matching { it is AndroidLintAnalysisTask || it is LintModelWriterTask }.configureEach {
-        mustRunAfter(tasks.matching { it.name.startsWith("generateResourceAccessorsFor") })
-    }
 }
 
 private fun Project.composeCompiler(block: ComposeCompilerGradlePluginExtension.() -> Unit) {

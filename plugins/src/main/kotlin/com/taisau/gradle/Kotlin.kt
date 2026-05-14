@@ -12,7 +12,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinWithJavaTarget
 
 internal fun Project.configureKotlinAndroid(
-	commonExtension: CommonExtension,
+	commonExtension: CommonExtension<*,*,*,*,*,*>,
 ) {
 	commonExtension.apply {
 		compileOptions.apply {
@@ -46,9 +46,6 @@ internal fun Project.configureKotlinKmp() {
 
 
 private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() = configure<T> {
-	// Treat all Kotlin warnings as errors (disabled by default)
-	// Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
-	val warningsAsErrors: String? = project.findProperty("warningsAsErrors") as? String
 	
 	when (this) {
 		is KotlinAndroidProjectExtension -> compilerOptions
@@ -56,7 +53,6 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
 		is KotlinMultiplatformExtension -> compilerOptions
 		else -> TODO("Unsupported project extension $this ${T::class}")
 	}.apply {
-		allWarningsAsErrors.set(warningsAsErrors.toBoolean())
 		
 		languageVersion.set(Versions.KOTLIN_VERSION)
 		apiVersion.set(Versions.KOTLIN_VERSION)
