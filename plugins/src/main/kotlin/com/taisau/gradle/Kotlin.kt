@@ -5,6 +5,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.findByType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinWithJavaTarget
@@ -20,7 +21,7 @@ internal fun Project.configureKotlinAndroid(
 		}
 	}
 
-	extensions.configure<KotlinJvmProjectExtension> {
+	extensions.configure<KotlinAndroidProjectExtension> {
 		compilerOptions {
 			jvmTarget.set(JvmTarget.fromTarget(Versions.JVM_TARGET.toString()))
 			freeCompilerArgs.addAll(
