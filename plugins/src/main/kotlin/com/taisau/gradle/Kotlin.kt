@@ -4,7 +4,6 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.findByType
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -23,7 +22,7 @@ internal fun Project.configureKotlinAndroid(
 
 	extensions.configure<KotlinAndroidProjectExtension> {
 		compilerOptions {
-			jvmTarget.set(JvmTarget.fromTarget(Versions.JVM_TARGET.toString()))
+			jvmTarget.set(Versions.JVM_TARGET)
 			freeCompilerArgs.addAll(
 				"-Xexplicit-backing-fields",
 				"-Xreturn-value-checker=full"
@@ -47,7 +46,7 @@ internal fun Project.configureKotlinJvm() {
 		compilerOptions {
 			languageVersion.set(Versions.KOTLIN_VERSION)
 			apiVersion.set(Versions.KOTLIN_VERSION)
-			jvmTarget.set(JvmTarget.fromTarget(Versions.JVM_TARGET.toString()))
+			jvmTarget.set(Versions.JVM_TARGET)
 			freeCompilerArgs.addAll("-Xexplicit-backing-fields", "-Xreturn-value-checker=full")
 		}
 	}
@@ -71,7 +70,7 @@ internal fun Project.configureKotlinKmp() {
 				compilations.configureEach {
 					compileTaskProvider.configure {
 						compilerOptions {
-							freeCompilerArgs.add("-jvm-target=${Versions.JVM_TARGET}")
+							freeCompilerArgs.add("-jvm-target=${Versions.JVM_TARGET.target}")
 						}
 					}
 				}
