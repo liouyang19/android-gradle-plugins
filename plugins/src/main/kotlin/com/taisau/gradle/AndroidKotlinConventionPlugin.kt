@@ -11,7 +11,10 @@ class AndroidKotlinConventionPlugin : Plugin<Project> {
 
 	override fun apply(target: Project) {
 		with(target) {
-			// 使用更可靠的方式获取扩展
+			with(pluginManager) {
+				apply("org.jetbrains.kotlin.android")
+			}
+
 			pluginManager.withPlugin("com.android.application") {
 				extensions.configure<ApplicationExtension> {
 					configureKotlinAndroid(this)
