@@ -9,8 +9,8 @@ plugins {
 
 apply(from = "../gradle/git-tag-version.gradle.kts")
 
-val versionNameFromTags: String by extra
-
+val versionNameFromTags = (extra["versionNameFromTags"] as Provider<*>).get()
+version = versionNameFromTags
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_21
@@ -19,6 +19,9 @@ java {
 
 kotlin {
     jvmToolchain(21)
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+    }
 }
 
 dependencies {
@@ -127,7 +130,7 @@ publishing {
         // 对所有自动生成的发布（包括 Marker 和 Main）进行统一校准
         withType<MavenPublication>().configureEach {
             // 统一 Version，确保 Marker 指向的版本与主 Jar 一致
-            version = versionNameFromTags
+            version = project.version.toString()
             
             // 如果是主 Jar 发布 (java-gradle-plugin 默认创建的叫 pluginMaven)
             if (name == "pluginMaven") {

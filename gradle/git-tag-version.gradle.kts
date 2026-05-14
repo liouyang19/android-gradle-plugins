@@ -1,31 +1,22 @@
-fun calculateVersionCodeFromTags(): Int {
-	return try {
+fun gitVersionCodeProvider() = providers.provider {
+	runCatching {
 		val result = providers.exec {
 			commandLine("git", "tag", "--list")
 			isIgnoreExitValue = true
-		}
-		val listOfTags = result.standardOutput.asText.get()
-		2 + listOfTags.split("\n").size
-	} catch (ignored: Exception) {
-		-1
-	}
+		}.standardOutput.asText.get()
+		2 + result.split("\n").count { it.isNotEmpty() }
+	}.getOrDefault(-1)
 }
 
-fun calculateVersionNameFromTags(): String? {
-	return try {
+fun gitVersionNameProvider() = providers.provider {
+	runCatching {
 		val result = providers.exec {
 			commandLine("git", "describe", "--tags", "--abbrev=0")
-			isIgnoreExitValue = true
 		}
-		if (result.result.get().exitValue != 0) return null
-		val version = result.standardOutput.asText.get().trim()
-		// Version may have % to add additional information
-		version.split("%")[0]
-	} catch (ignored: Exception) {
-		ignored.printStackTrace()
-		null
-	}
+		if (result.result.get().exitValue != 0) return@provider "local"
+		result.standardOutput.asText.get().trim().split("%")[0]
+	}.getOrDefault("local")
 }
 
-extra["versionCodeFromTags"] = calculateVersionCodeFromTags() ?: "local"
-extra["versionNameFromTags"] = calculateVersionNameFromTags() ?: "local"
+extra["versionCodeFromTags"] = gitVersionCodeProvider()
+extra["versionNameFromTags"] = gitVersionNameProvider()

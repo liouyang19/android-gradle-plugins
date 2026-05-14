@@ -325,6 +325,7 @@ android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 
 # Kotlin 相关插件
 # 包含 JVM、多平台、序列化、KSP、Compose 等 Kotlin 生态系统的 Gradle 插件
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-dokka = { id = "org.jetbrains.dokka", version.ref = "dokkaPlugin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

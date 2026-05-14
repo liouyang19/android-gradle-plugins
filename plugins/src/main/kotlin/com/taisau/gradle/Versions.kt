@@ -4,9 +4,9 @@ import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 object Versions {
-	const val COMPILE_SDK = 36
+	const val COMPILE_SDK = 35
 	const val MIN_SDK = 26
-	const val TARGET_SDK = 36
+	const val TARGET_SDK = 35
 	
 	val KOTLIN_VERSION = KotlinVersion.KOTLIN_2_3
 	val JAVA_SOURCE_VERSION = JavaVersion.VERSION_21

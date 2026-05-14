@@ -4,7 +4,7 @@ plugins {
 }
 
 apply(from = "../gradle/git-tag-version.gradle.kts")
-val versionNameFromTags: String by extra
+val versionNameFromTags = (extra["versionNameFromTags"] as Provider<*>).get()
 group = "com.github.liouyang19"
 version = versionNameFromTags
 

@@ -4,17 +4,24 @@ import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.findByType
+import org.gradle.kotlin.dsl.configure
+
 
 class AndroidKotlinConventionPlugin : Plugin<Project> {
 
 	override fun apply(target: Project) {
 		with(target) {
-			extensions.findByType<LibraryExtension>()?.apply {
-				configureKotlinAndroid(this)
+			// 使用更可靠的方式获取扩展
+			pluginManager.withPlugin("com.android.application") {
+				extensions.configure<ApplicationExtension> {
+					configureKotlinAndroid(this)
+				}
 			}
-			extensions.findByType<ApplicationExtension>()?.apply {
-				configureKotlinAndroid(this)
+			
+			pluginManager.withPlugin("com.android.library") {
+				extensions.configure<LibraryExtension> {
+					configureKotlinAndroid(this)
+				}
 			}
 		}
 	}
