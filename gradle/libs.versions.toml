@@ -10,53 +10,51 @@ androidxAnnotation = "1.9.1"
 spotless = "6.25.0"
 licensee = "1.12.0"
 dokkaPlugin = "2.2.0"
-taisauPlugins = "1.2.0"
+taisauPlugins = "1.2.4"
 compose-multiplatform = "1.7.0"
 
 
 ##################### AndroidX Libraray Version ###########
 
-core-ktx = "1.17.0"
+core-ktx = "1.18.0"
 graphics-core = "1.0.4"
 
-annotation = "1.9.1"
 protobufPlugin = "0.9.6"
 publishPlugin = "2.1.1"
 
-datastore = "1.2.0"
+androidxDataStore = "1.2.1"
 
 
 tracing = "1.3.0"
 
 #############第三方库#################
 retrofit = "3.0.0"
-work = "2.11.1"
+work = "2.11.2"
 mqttv3 = "1.2.5"
 okhttp = "5.3.2"
 okio = "3.16.2"
-protobuf = "4.33.1"
+protobuf = "4.34.1"
 markwon = "4.6.2"
 androidxGridlayout = "1.1.0"
-media3 = "1.9.2"
+media3 = "1.10.0"
 xlog = "1.11.1"
 zxing = "3.5.4"
 room = "2.8.4"
-coil = "2.7.0"
+coil = "3.4.0"
 paging = "3.4.2"
 dagger = "2.55"
 hilt = "2.55"
 hiltExt = "1.3.0"
 kotlinxCoroutines = "1.10.2"
 kotlinxDatetime = "0.7.1-0.6.x-compat"
-kotlinxSerializationJson = "1.10.0"
-androidxComposeBom = "2026.03.01"
+kotlinxSerializationJson = "1.11.0"
+androidxComposeBom = "2026.04.01"
 androidxLintGradle = "1.0.0-alpha03"
 
 ############### Koltin Version ###########
-coroutines = "1.10.2"
-serialization = "1.10.0"
+serialization = "1.11.0"
 accompanist = "0.37.3"
-accompanistPlaceholder = "0.36.0"
+accompanistPlaceholder = "0.37.3"
 androidDesugarJdkLibs = "2.1.5"
 
 ########## Test Version ############
@@ -73,15 +71,14 @@ androidxCardview = "1.0.0"
 androidxConstraintlayout = "2.2.1"
 androidxCore = "1.18.0"
 androidxCoreSplashscreen = "1.2.0"
-androidxDataStore = "1.2.1"
 
 androidxFragment = "1.8.9"
 androidxHiltNavigationCompose = "1.3.0"
 androidxLifecycle = "2.10.0"
 androidxLocalbroadcastmanager = "1.1.0"
 androidxMacroBenchmark = "1.4.1"
-androidxNavigation = "2.9.7"
-androidxNavigation3 = "1.0.1"
+androidxNavigation = "2.9.8"
+androidxNavigation3 = "1.1.1"
 androidxMetrics = "1.0.0"
 androidxPreference = "1.2.1"
 androidxProfileinstaller = "1.4.1"
@@ -95,7 +92,6 @@ androidxTestRunner = "1.7.0"
 androidxTestRules = "1.7.0"
 androidxTracing = "1.3.0"
 androidxUiAutomator = "2.3.0"
-androidxWork = "2.11.2"
 androidxComposeRuntimeTracing = "1.10.6"
 moshi = "1.15.2"
 koinCore = "4.2.0"
@@ -111,7 +107,7 @@ fasterxml = "2.13.5" # don't update
 # Accompanist 辅助库
 # Google 提供的 Jetpack Compose 扩展库，提供占位符和权限管理等功能
 accompanist-placeholder = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "accompanistPlaceholder" }
-accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
+accompanist-permissionsaccompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
 
 # Android 工具库
 # JDK 8+ API 的向后兼容支持库
@@ -288,16 +284,11 @@ hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testi
 hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
 hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
 
-# Coil 图片加载库
+# Coil 图片加载库 (Coil 3.x)
 # Kotlin 协程驱动的现代图片加载库，支持 Compose 和 SVG 格式
-coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
-coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
-coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
-
-
-
-tools-desugarjdklibs = "com.android.tools:desugar_jdk_libs:2.1.3"
-
+coil-kt = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil" }
+coil-kt-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-kt-svg = { group = "io.coil-kt.coil3", name = "coil-svg", version.ref = "coil" }
 
 
 
