@@ -53,12 +53,12 @@ gradlePlugin {
     isAutomatedPublishing = true
     plugins {
         register("android.application") {
-            id = "com.taisau.android.plugin.android.application"
+            id = "com.taisau.android.plugin.application"
             displayName = "Standalone Application configuration"
             implementationClass = "com.taisau.gradle.AndroidApplicationConventionPlugin"
         }
         register("android.application.compose") {
-            id = "com.taisau.android.plugin.android.application.compose"
+            id = "com.taisau.android.plugin.application.compose"
             implementationClass = "com.taisau.gradle.AndroidApplicationComposeConventionPlugin"
         }
         register("android.library") {
@@ -102,7 +102,7 @@ gradlePlugin {
             implementationClass = "com.taisau.gradle.JvmKotlinConventionPlugin"
         }
         register("kmp.kotlin") {
-            id = "com.taisau.kmp.plugin.kotlin"
+            id = "com.taisau.kotlin.plugin.kmp"
             displayName = "Kotlin plugin for KMP projects"
             implementationClass = "com.taisau.gradle.KotlinMultiplatformConventionPlugin"
         }

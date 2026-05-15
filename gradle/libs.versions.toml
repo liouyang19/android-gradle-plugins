@@ -356,7 +356,6 @@ taisau-android-library-compose = { id = "com.taisau.android.plugin.library.compo
 taisau-android-kotlin = { id = "com.taisau.android.plugin.kotlin", version.ref = "taisauPlugins" }
 taisau-android-feature = { id = "com.taisau.android.plugin.feature", version.ref = "taisauPlugins" }
 taisau-android-hilt = { id = "com.taisau.android.plugin.hilt", version.ref = "taisauPlugins"}
-taisau-android-test = { id = "com.taisau.android.plugin.test", version.ref = "taisauPlugins" }
 taisau-android-room = { id = "com.taisau.android.plugin.room", version.ref = "taisauPlugins" }
 taisau-jvm-kotlin = { id = "com.taisau.jvm.plugin.kotlin", version.ref = "taisauPlugins"}
 taisau-kotlin-kmp = { id = "com.taisau.kotlin.plugin.kmp", version.ref = "taisauPlugins" }
