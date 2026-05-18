@@ -13,6 +13,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.library")
                 apply(AndroidLintConventionPlugin::class.java)
+                apply(AndroidKotlinConventionPlugin::class.java)
             }
          
             
