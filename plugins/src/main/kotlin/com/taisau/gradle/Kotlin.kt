@@ -11,13 +11,11 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinWithJavaTarget
 
 
 internal fun Project.configureKotlinAndroid(
-	commonExtension: CommonExtension<*, *, *, *, *, *>,
+	commonExtension: CommonExtension,
 ) {
-	commonExtension.apply {
-		compileOptions {
-			sourceCompatibility = Versions.JAVA_SOURCE_VERSION
-			targetCompatibility = Versions.JAVA_TARGET_VERSION
-		}
+	commonExtension.compileOptions.apply {
+		sourceCompatibility = Versions.JAVA_SOURCE_VERSION
+		targetCompatibility = Versions.JAVA_TARGET_VERSION
 	}
 
 	extensions.configure<KotlinAndroidProjectExtension> {
