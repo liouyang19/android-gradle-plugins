@@ -17,7 +17,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
 				// The above library depends on the following libraries, but to keep them in the
 				// newest version, we add them here as well.
 				add("implementation", libs.findLibrary("androidx.lifecycle.runtime.compose").get())
-				add("implementation", libs.findLibrary("androidx.lifecycle.viewModel.compose").get())
+				add("implementation", libs.findLibrary("androidx.lifecycle.viewmodel.compose").get())
 			}
 		}
 	}
