@@ -10,6 +10,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
 			with(pluginManager) {
 				apply(AndroidLibraryComposeConventionPlugin::class.java)
 				apply(AndroidHiltConventionPlugin::class.java)
+
 			}
 			
 			dependencies {
