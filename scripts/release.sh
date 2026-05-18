@@ -35,7 +35,7 @@ fi
 VERSION="$1"
 COMMIT_MSG="${2:-}"
 
-if ! echo "$VERSION" | grep -qP '^\d+\.\d+\.\d+$'; then
+if ! echo "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
     echo -e "${RED}Error: version must be in X.Y.Z format (e.g. 1.3.2)${NC}"
     exit 1
 fi
