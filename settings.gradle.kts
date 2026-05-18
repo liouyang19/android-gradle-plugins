@@ -1,6 +1,5 @@
-val isJitPack = System.getenv("JITPACK") != null
-
 pluginManagement {
+    val isJitPack = System.getenv("JITPACK") != null
     repositories {
         mavenLocal()
         if (!isJitPack) {
@@ -22,6 +21,7 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
+    val isJitPack = System.getenv("JITPACK") != null
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenLocal()
