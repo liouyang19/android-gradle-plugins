@@ -9,7 +9,7 @@ plugins {
 
 apply(from = "../gradle/git-tag-version.gradle.kts")
 
-val versionNameFromTags = (extra["versionNameFromTags"] as Provider<*>).get()
+val versionNameFromTags = extra["versionNameFromTags"] as String
 version = versionNameFromTags
 
 java {

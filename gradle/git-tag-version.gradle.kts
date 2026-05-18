@@ -1,22 +1,19 @@
-fun gitVersionCodeProvider() = providers.provider {
-	runCatching {
-		val result = providers.exec {
-			commandLine("git", "tag", "--list")
-			isIgnoreExitValue = true
-		}.standardOutput.asText.get()
-		2 + result.split("\n").count { it.isNotEmpty() }
-	}.getOrDefault(-1)
-}
+val versionCode = runCatching {
+	val proc = ProcessBuilder("git", "tag", "--list")
+		.redirectErrorStream(true)
+		.start()
+	val output = proc.inputStream.bufferedReader().readText()
+	proc.waitFor()
+	2 + output.lines().count { it.isNotEmpty() }
+}.getOrDefault(-1)
 
-fun gitVersionNameProvider() = providers.provider {
-	runCatching {
-		val result = providers.exec {
-			commandLine("git", "describe", "--tags", "--abbrev=0")
-		}
-		if (result.result.get().exitValue != 0) return@provider "local"
-		result.standardOutput.asText.get().trim().split("%")[0]
-	}.getOrDefault("local")
-}
+val versionName = runCatching {
+	val proc = ProcessBuilder("git", "describe", "--tags", "--abbrev=0")
+		.redirectErrorStream(true)
+		.start()
+	if (proc.waitFor() != 0) return@runCatching "local"
+	proc.inputStream.bufferedReader().readText().trim().split("%")[0]
+}.getOrDefault("local")
 
-extra["versionCodeFromTags"] = gitVersionCodeProvider()
-extra["versionNameFromTags"] = gitVersionNameProvider()
+extra["versionCodeFromTags"] = versionCode
+extra["versionNameFromTags"] = versionName

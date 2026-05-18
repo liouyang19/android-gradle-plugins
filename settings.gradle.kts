@@ -1,10 +1,14 @@
+val isJitPack = System.getenv("JITPACK") != null
+
 pluginManagement {
     repositories {
         mavenLocal()
-        // 阿里云镜像（仅本地开发用，JitPack 环境不可达）
-        maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
-        maven { setUrl("https://maven.aliyun.com/repository/central") }
-        maven { setUrl("https://maven.aliyun.com/repository/google") }
+        if (!isJitPack) {
+            // 国内镜像（仅本地开发用，JitPack 环境不可达）
+            maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
+            maven { setUrl("https://maven.aliyun.com/repository/central") }
+            maven { setUrl("https://maven.aliyun.com/repository/google") }
+        }
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -21,10 +25,12 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenLocal()
-        // 阿里云镜像（仅本地开发用，JitPack 环境不可达）
-        maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
-        maven { setUrl("https://maven.aliyun.com/repository/central") }
-        maven { setUrl("https://maven.aliyun.com/repository/google") }
+        if (!isJitPack) {
+            // 国内镜像（仅本地开发用，JitPack 环境不可达）
+            maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
+            maven { setUrl("https://maven.aliyun.com/repository/central") }
+            maven { setUrl("https://maven.aliyun.com/repository/google") }
+        }
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
